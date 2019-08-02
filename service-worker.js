@@ -6,13 +6,15 @@ console.log(`I am registered at ${self.registration.scope}`)
 
 self.addEventListener('install', event => {
   const mountpoint = new URL(self.registration.scope).pathname.slice(0, -1);
-  console.log(mountpoint)
+  const toCache = [
+    `${mountpoint}`,
+    ...datata.map(datum => `${mountpoint}/data/${datum}.json`),
+  ];
+  console.log(toCache)
+
   event.waitUntil(
     caches.open('v1').then(function(cache) {
-      return cache.addAll([
-        `${mountpoint}`,
-        ...datata.map(datum => `${mountpoint}/data/${datum}.json`),
-      ]);
+      return cache.addAll(toCache);
     })
   );
 })
