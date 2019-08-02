@@ -1,13 +1,15 @@
 /* eslint-disable no-restricted-globals */
+
+const datata = ['default', 'angry', 'happy', 'sad']
+
+console.log(`I am registered at ${self.registration.scope}`)
+
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open('v1').then(function(cache) {
       return cache.addAll([
+        ...datata.map(datum => `/data/${datum}.json`),
         '/',
-        '/data/default.json',
-        '/data/angry.json',
-        '/data/happy.json',
-        '/data/sad.json'
       ]);
     })
   );
