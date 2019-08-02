@@ -3,6 +3,7 @@
 const datata = ['default', 'angry', 'happy', 'sad']
 
 console.log(`I am registered at ${self.registration.scope}`)
+console.log(...datata.map(datum => `${mountpoint}/data/${datum}.json`));
 
 const mountpoint = new URL(self.registration.scope).pathname.slice(0, -1);
 
