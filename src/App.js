@@ -12,7 +12,7 @@ const App = () => {
   const [data, setData] = useState([])
 
   useEffect(() => {
-    fetch(`http://localhost:8765/${word}`)
+    fetch(`${process.env.PUBLIC_URL}/data/${word}.json`)
       .then(res => res.json())
       .then(setData)
   }, [word])

@@ -59,6 +59,7 @@
     "workbox-webpack-plugin": "4.2.0"
   },
   "scripts": {
+    "deploy": "rm -rf build && npm run build && gh-pages -d build",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
@@ -127,5 +128,9 @@
     "presets": [
       "react-app"
     ]
-  }
+  },
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  },
+  "homepage": "https://www.nowak.me.uk/sw/"
 }
