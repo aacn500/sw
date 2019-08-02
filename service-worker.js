@@ -4,12 +4,14 @@ const datata = ['default', 'angry', 'happy', 'sad']
 
 console.log(`I am registered at ${self.registration.scope}`)
 
+const mountpoint = new URL(self.registration.scope).pathname.slice(0, -1);
+
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open('v1').then(function(cache) {
       return cache.addAll([
-        ...datata.map(datum => `/data/${datum}.json`),
-        '/',
+        `${mountpoint}`,
+        ...datata.map(datum => `${mountpoint}/data/${datum}.json`),
       ]);
     })
   );
