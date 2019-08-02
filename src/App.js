@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react'
+import './App.css'
 
-function App() {
+import Alternatives from './Alternatives'
+
+const knownWords = [
+  'default', 'happy', 'sad', 'angry'
+]
+
+const App = () => {
+  const [word, setWord] = useState('default')
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    fetch(`http://localhost:8765/${word}`)
+      .then(res => res.json())
+      .then(setData)
+  }, [word])
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <nav>
+          <ul>
+            {knownWords.map(c => (
+              <li key={c}>
+                <button onClick={() => setWord(c)}>{c}</button>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </header>
+      <main>
+        <h1>Alternatives to {word}</h1>
+        <Alternatives data={data} />
+      </main>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
